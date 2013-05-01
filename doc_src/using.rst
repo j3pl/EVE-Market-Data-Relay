@@ -339,7 +339,7 @@ Perl uses the `ZeroMQ-Perl`_ binding for Perl:
 Java
 ^^^^
 
-Java uses jzmq_ binding:
+Java uses jeromq_ binding:
 
 .. code-block:: java
 
@@ -347,8 +347,8 @@ Java uses jzmq_ binding:
      * Example Java EMDR client.
      */
 
-    import org.zeromq.*; // https://github.com/zeromq/jzmq
-    import org.json.simple.*; // http://code.google.com/p/json-simple/downloads/list
+    import org.jeromq.*;      // http://github.com/zeromq/jeromq
+    import org.json.simple.*; // http://code.google.com/p/json-simple
     import org.json.simple.parser.*;
     import java.util.zip.*;
 
@@ -398,7 +398,7 @@ Java uses jzmq_ binding:
         }
     }
 
-.. _jzmq: http://www.zeromq.org/bindings:java
+.. _jeromq: http://github.com/zeromq/jeromq
 
 Erlang
 ^^^^^^
