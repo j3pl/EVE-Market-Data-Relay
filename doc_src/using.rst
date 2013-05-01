@@ -347,6 +347,7 @@ Java uses jeromq_ binding:
      * Example Java EMDR client.
      */
 
+    import java.io.ByteArrayOutputStream;
     import org.jeromq.*;      // http://github.com/zeromq/jeromq
     import org.json.simple.*; // http://code.google.com/p/json-simple
     import org.json.simple.parser.*;
@@ -370,20 +371,8 @@ Java uses jeromq_ binding:
                     // Receive compressed raw market data.
                     byte[] receivedData = subscriber.recv(0);
 
-                    // We build a large enough buffer to contain the decompressed data.
-                    byte[] decompressed = new byte[receivedData.length * 16];
-
                     // Decompress the raw market data.
-                    Inflater inflater = new Inflater();
-                    inflater.setInput(receivedData);
-                    int decompressedLength = inflater.inflate(decompressed);
-                    inflater.end();
-
-                    byte[] output = new byte[decompressedLength];
-                    System.arraycopy(decompressed, 0, output, 0, decompressedLength);
-
-                    // Transform data into JSON strings.
-                    String market_json = new String(output, "UTF-8");
+                    String market_json = inflate(receivedData);
 
                     // Un-serialize the JSON data.
                     JSONParser parser = new JSONParser();
@@ -391,10 +380,18 @@ Java uses jeromq_ binding:
 
                     // Dump the market data to console or, you know, do more fun things here.
                     System.out.println(market_data);
-                } catch (ZMQException ex) {
-                    System.out.println("ZMQ Exception occurred : " + ex.getMessage());
+                } catch (Exception ex) {
+                    System.out.println("Exception occurred : " + ex.getMessage());
                 }
             }
+        }
+
+        static String inflate(byte[] data) throws java.io.IOException {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            InflaterOutputStream ios = new InflaterOutputStream(baos);
+            ios.write(data, 0, data.length);
+            ios.close();
+            return baos.toString();
         }
     }
 
