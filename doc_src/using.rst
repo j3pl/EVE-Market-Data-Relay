@@ -397,6 +397,46 @@ Java uses jeromq_ binding:
 
 .. _jeromq: http://github.com/zeromq/jeromq
 
+The following Maven POM can be used to compile and run the example. Save the code as
+``src/main/java/EMDR_Client.java`` and run with ``mvn exec:java`.
+
+.. code-block:: xml
+
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+
+      <groupId>emdr</groupId>
+      <artifactId>emdr-java-example</artifactId>
+      <version>1.0</version>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.jeromq</groupId>
+          <artifactId>jeromq</artifactId>
+          <version>0.2.0</version>
+        </dependency>
+        <dependency>
+    	  <groupId>com.googlecode.json-simple</groupId>
+    	  <artifactId>json-simple</artifactId>
+    	  <version>1.1.1</version>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <configuration>
+              <mainClass>EMDR_Client</mainClass>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </project>
+
 Erlang
 ^^^^^^
 
